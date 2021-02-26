@@ -206,11 +206,16 @@ function generateTopForPie(keysTotalsDates, key, isTotal) {
     }
   });
 
+  // Sort data arcs by value
+  var sortedDataPoint = dataPoint.slice().sort(function (a, b) { return b - a });
+  var sortedDataPointIndexes = sortedDataPoint.map(function (d) { return dataPoint.indexOf(d) });
+  var sortedLabels = sortedDataPointIndexes.map(function (i) { return uniqueKeys[i] });
+
   return {
-    labels: uniqueKeys,
+    labels: sortedLabels,
     datasets: [
       {
-        data: dataPoint,
+        data: sortedDataPoint,
         backgroundColor: colors,
       },
     ],
